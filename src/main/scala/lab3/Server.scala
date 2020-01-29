@@ -26,7 +26,7 @@ class Server(port: Int, maxConnections: Int, timeout: Int = 20000) {
   private def serve(
       socket: ServerSocket
   )(implicit ex: ExecutionContext): Future[Unit] =
-    if (currentConnections < maxConnections)
+    if (currentConnections < maxConnections - 1)
       for {
         _ <- acceptNewConnection(socket)
         _ <- serve(socket)
